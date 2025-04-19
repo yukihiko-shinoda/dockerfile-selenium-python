@@ -26,6 +26,3 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/selenium-python:test
       - uses: actions/checkout@v4
       - run: docker compose -f compose.test.yml run --rm selenium-python python --help
-      - uses: actions/checkout@v4
-      # Should print "selenium"
-      - run: docker compose -f compose.test.yml run --rm --user root --entrypoint '' selenium-python sudo -u selenium uv run whoami

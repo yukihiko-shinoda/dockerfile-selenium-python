@@ -39,9 +39,5 @@ WORKDIR /workspace
 RUN groupadd -g 1000 selenium \
  && useradd -m -s /bin/bash -u 1000 -g 1000 selenium \
  && install -d -o selenium -g root /workspace/.selenium-cache \
- # For development
  && pip --no-cache-dir install uv==0.6.14
-USER selenium
-RUN  pip --no-cache-dir install --user uv==0.6.14
-ENV PATH=/home/selenium/.local/bin:$PATH
-ENTRYPOINT ["uv", "run"]
+ENTRYPOINT ["sudo", "-u", "selenium", "uv", "run"]
