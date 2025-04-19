@@ -4,9 +4,6 @@ services:
     entrypoint:
       - /bin/bash
     image: futureys/selenium-python:development
-    ports:
-      # For gatsby develop
-      - "8000:8000"
     user: root
     volumes:
       - .:/workspace

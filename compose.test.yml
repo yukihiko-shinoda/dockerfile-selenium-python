@@ -2,9 +2,6 @@ services:
   selenium-python:
     build: .
     image: futureys/selenium-python:development
-    ports:
-      # For gatsby develop
-      - "8000:8000"
     volumes:
       - .:/workspace
       - /workspace/.selenium-cache
