@@ -2,14 +2,19 @@ FROM python:3.13.2-slim-bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # To set up the PPA
     wget/stable \
-    # To have a virtual screen
-    xvfb/stable \
+    # To add apt-key to set up the PPA
+    gnupg=2.2.40-1.1 \
     # To install the Chromedriver
     unzip=6.0-28 \
-    # To add apt-key
-    gnupg=2.2.40-1.1 \
-    # To run the tests as the user: selenium when development
+    # To run as the user: selenium
     sudo=1.9.13p3-1+deb12u1 \
+    # To have a virtual screen to run selenium as headless
+    # - Answer: selenium - What is difference between Xvfb and Chromedriver and when to use them - Stack Overflow
+    #   https://stackoverflow.com/a/41460456/12721873
+    xvfb/stable \
+    # - pythonでseleniumを使ってスクリーンショットを撮ると、日本語が文字化けしてしまう | プログラミング学習サイト【侍テラコヤ】
+    #   https://terakoya.sejuku.net/question/detail/33885)
+    fonts-ipafont-gothic=00303-23 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # See:
