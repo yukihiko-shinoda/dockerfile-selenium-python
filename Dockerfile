@@ -1,20 +1,20 @@
-FROM python:3.13.2-slim-bookworm
+FROM python:3.13.3-slim-bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # To set up the PPA
     wget/stable \
     # To add apt-key to set up the PPA
     gnupg=2.2.40-1.1 \
     # To install the Chromedriver
-    unzip=6.0-28 \
+    unzip/stable \
     # To run as the user: selenium
-    sudo=1.9.13p3-1+deb12u1 \
+    sudo/stable \
     # To have a virtual screen to run selenium as headless
     # - Answer: selenium - What is difference between Xvfb and Chromedriver and when to use them - Stack Overflow
     #   https://stackoverflow.com/a/41460456/12721873
     xvfb/stable \
     # - pythonでseleniumを使ってスクリーンショットを撮ると、日本語が文字化けしてしまう | プログラミング学習サイト【侍テラコヤ】
     #   https://terakoya.sejuku.net/question/detail/33885)
-    fonts-ipafont-gothic=00303-23 \
+    fonts-ipafont-gothic/stable \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # See:
@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends google-chrome-s
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # Set up Chromedriver Environment variables
-ENV CHROMEDRIVER_VERSION=133.0.6943.126
+ENV CHROMEDRIVER_VERSION=137.0.7151.55
 ENV CHROMEDRIVER_DIR=/chromedriver
 RUN mkdir $CHROMEDRIVER_DIR \
 # - Chrome for Testing availability
@@ -44,5 +44,5 @@ WORKDIR /workspace
 RUN groupadd -g 1000 selenium \
  && useradd -m -s /bin/bash -u 1000 -g 1000 selenium \
  && install -d -o selenium -g root /workspace/.selenium-cache \
- && pip --no-cache-dir install uv==0.6.14
+ && pip --no-cache-dir install uv==0.7.9
 ENTRYPOINT ["sudo", "-u", "selenium", "uv", "run"]
