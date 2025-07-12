@@ -1,9 +1,9 @@
-FROM python:3.13.3-slim-bookworm
+FROM python:3.13.5-slim-bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # To set up the PPA
     wget/stable \
     # To add apt-key to set up the PPA
-    gnupg=2.2.40-1.1 \
+    gnupg/stable \
     # To install the Chromedriver
     unzip/stable \
     # To run as the user: selenium
@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends google-chrome-s
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 # Set up Chromedriver Environment variables
-ENV CHROMEDRIVER_VERSION=137.0.7151.55
+ENV CHROMEDRIVER_VERSION=138.0.7204.94
 ENV CHROMEDRIVER_DIR=/chromedriver
 RUN mkdir $CHROMEDRIVER_DIR \
 # - Chrome for Testing availability
@@ -44,5 +44,5 @@ WORKDIR /workspace
 RUN groupadd -g 1000 selenium \
  && useradd -m -s /bin/bash -u 1000 -g 1000 selenium \
  && install -d -o selenium -g root /workspace/.selenium-cache \
- && pip --no-cache-dir install uv==0.7.9
+ && pip --no-cache-dir install uv==0.7.20
 ENTRYPOINT ["sudo", "-u", "selenium", "uv", "run"]
